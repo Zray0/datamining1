@@ -1,0 +1,12 @@
+Django>=4.2
+psycopg2-binary
+pandas
+numpy
+scikit-learn
+statsmodels
+prophet
+celery[redis]
+django-environ
+django-crispy-forms
+python-dotenv
+gunicorn

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Products</h2>
+<form method="get" class="mb-3"><input type="text" name="q" value="{{ q }}" placeholder="Search..." class="form-control" /></form>
+<div class="row">
+  {% for p in products %}
+  <div class="col-md-4 mb-3">
+    <div class="card p-2">
+      <div class="card-body">
+        <h5 class="card-title">{{ p.name }}</h5>
+        <p>Price: ₹{{ p.price }}</p>
+        <p>Stock: {{ p.stock_qty }} {% if p.is_low_stock %}<span class="badge bg-warning">Low</span>{% endif %}</p>
+        <a href="{% url 'inventory:product_detail' p.pk %}" class="btn btn-primary">View</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+    <p>No products found.</p>
+  {% endfor %}
+</div>
+{% endblock %}

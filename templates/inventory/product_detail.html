@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>{{ product.name }}</h3>
+<p>SKU: {{ product.sku }}</p>
+<p>Category: {{ product.category }}</p>
+<p>Price: ₹{{ product.price }}</p>
+<p>Stock: {{ product.stock_qty }} {% if product.is_low_stock %}<span class="badge bg-warning">Low</span>{% endif %}</p>
+<p>{{ product.description }}</p>
+{% endblock %}

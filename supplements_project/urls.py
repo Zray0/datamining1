@@ -6,4 +6,5 @@ urlpatterns = [
     path('', include('inventory.urls', namespace='inventory')),
     path('sales/', include('sales.urls')),
     path('analytics/', include('analytics.urls')),
+    path('dashboard/',include('dashboards.urls',namespace='dashboards')),
 ]

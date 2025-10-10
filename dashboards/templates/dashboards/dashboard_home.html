@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f6f6f6; margin: 0; padding: 0; }
+    .container { width: 90%; margin: 20px auto; }
+    .stats { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; }
+    .card { flex: 1 1 20%; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+    h3 { margin: 10px 0; }
+    canvas { background: #fff; border-radius: 10px; padding: 20px; margin-top: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Admin Dashboard</h1>
+
+    <div class="stats">
+      <div class="card">
+        <h3>Total Revenue</h3>
+        <p><strong>₹{{ total_revenue|floatformat:2 }}</strong></p>
+      </div>
+      <div class="card">
+        <h3>Total Orders</h3>
+        <p>{{ total_orders }}</p>
+      </div>
+      <div class="card">
+        <h3>Top Product</h3>
+        <p>{{ top_product }}</p>
+      </div>
+      <div class="card">
+        <h3>Avg. Satisfaction</h3>
+        <p>{{ avg_satisfaction }} / 5</p>
+      </div>
+      <div class="card">
+        <h3>Low Stock (Returned)</h3>
+        <p>{{ low_stock }}</p>
+      </div>
+    </div>
+
+    <canvas id="salesChart" height="100"></canvas>
+    <canvas id="inventoryChart" height="100"></canvas>
+  </div>
+
+  <script>
+    // Sales Chart
+    const ctx1 = document.getElementById('salesChart');
+    new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: {{ chart_labels|safe }},
+        datasets: [{
+          label: 'Revenue (₹)',
+          data: {{ chart_data|safe }},
+          borderWidth: 2,
+          fill: true,
+          borderColor: '#007bff',
+          backgroundColor: 'rgba(0, 123, 255, 0.1)'
+        }]
+      },
+      options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+
+    // Inventory Chart
+    const ctx2 = document.getElementById('inventoryChart');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: {{ inv_labels|safe }},
+        datasets: [{
+          label: 'Revenue by Category (₹)',
+          data: {{ inv_data|safe }},
+          backgroundColor: 'rgba(40, 167, 69, 0.6)',
+          borderColor: '#28a745',
+          borderWidth: 1
+        }]
+      },
+      options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+  </script>
+</body>
+</html>

@@ -21,6 +21,7 @@ class Product(models.Model):
 
 
 class SupplementData(models.Model):
+    id = models.BigAutoField(primary_key=True)
     date = models.DateField()
     product_name = models.CharField(max_length=100)
     category = models.CharField(max_length=50)
@@ -48,3 +49,9 @@ class SupplementData(models.Model):
     body_fat_change = models.FloatField()
     performance_improvement = models.FloatField()
     satisfaction = models.FloatField()
+
+    class Meta:
+        db_table = 'inventory_supplementdata'
+
+    def __str__(self):
+        return self.product_name

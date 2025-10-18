@@ -1,0 +1,54 @@
+<!-- templates/accounts/login.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sign in</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{% static 'favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+</head>
+<body class="auth-body">
+  <main class="auth-main">
+    <section class="card">
+      <header class="card-head">
+        <h1>Welcome back</h1>
+        <p class="muted">Sign in to continue</p>
+      </header>
+
+      {% if messages %}
+        <ul class="messages">
+          {% for m in messages %}<li class="{{ m.tags }}">{{ m }}</li>{% endfor %}
+        </ul>
+      {% endif %}
+
+      <form method="post" class="form" novalidate>
+        {% csrf_token %}
+        <div class="field">
+          <label for="{{ form.username.id_for_label }}">Username</label>
+          {{ form.username }}
+          {% for e in form.username.errors %}<div class="err">{{ e }}</div>{% endfor %}
+        </div>
+        <div class="field">
+          <label for="{{ form.password.id_for_label }}">Password</label>
+          {{ form.password }}
+          {% for e in form.password.errors %}<div class="err">{{ e }}</div>{% endfor %}
+        </div>
+        <div class="check-row">
+          <label class="check">
+            {{ form.remember }} <span>Remember me</span>
+          </label>
+          <a href="{% url 'accounts:password_reset' %}">Forgot password?</a>
+        </div>
+        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+        <button type="submit" class="btn-primary">Sign in</button>
+      </form>
+
+      <footer class="card-foot">
+        <span>New here?</span> <a href="{% url 'accounts:signup' %}">Create an account</a>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>

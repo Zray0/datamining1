@@ -1,0 +1,22 @@
+<!-- templates/analytics/rules.html -->
+<!doctype html><html><head><meta charset="utf-8"><title>Association Rules</title>
+<style>table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px}th{background:#f3f4f6}</style>
+</head><body>
+<h1>Association Rules</h1>
+<table>
+  <thead><tr><th>Antecedents</th><th>Consequents</th><th>Support</th><th>Confidence</th><th>Lift</th></tr></thead>
+  <tbody>
+  {% for r in rules %}
+    <tr>
+      <td>{{ r.antecedents|join:", " }}</td>
+      <td>{{ r.consequents|join:", " }}</td>
+      <td>{{ r.support|floatformat:4 }}</td>
+      <td>{{ r.confidence|floatformat:4 }}</td>
+      <td>{{ r.lift|floatformat:3 }}</td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="5">No rules available.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</body></html>

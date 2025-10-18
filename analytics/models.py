@@ -1,14 +1,23 @@
+# analytics/models.py
 from django.db import models
-from inventory.models import Product
+from django.contrib.postgres.fields import ArrayField
 
-class ForecastData(models.Model):
-    product = models.ForeignKey(Product, related_name='forecasts', on_delete=models.CASCADE)
-    forecast_date = models.DateField()
-    predicted_demand = models.FloatField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    model_name = models.CharField(max_length=100, default='moving_average')
-    accuracy = models.FloatField(null=True, blank=True)
+class AssocRule(models.Model):
+    antecedents = ArrayField(models.CharField(max_length=64))
+    consequents = ArrayField(models.CharField(max_length=64))
+    support = models.FloatField()
+    confidence = models.FloatField()
+    lift = models.FloatField()
+    leverage = models.FloatField()
+    conviction = models.FloatField()
+    mined_at = models.DateTimeField(auto_now_add=True)
+
     class Meta:
-        unique_together = ('product', 'forecast_date')
+        indexes = [
+            models.Index(fields=["-lift", "-confidence", "-support"]),
+        ]
+
     def __str__(self):
-        return f"{self.product.name} - {self.forecast_date}: {self.predicted_demand}"
+        ants = ",".join(self.antecedents)
+        cons = ",".join(self.consequents)
+        return f"{ants} -> {cons} (lift={self.lift:.2f})"

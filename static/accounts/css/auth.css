@@ -1,0 +1,39 @@
+/* static/accounts/css/auth.css (minimal subset) */
+:root{
+  --bg:#0b0f19; --panel:#111827; --border:rgba(255,255,255,.12);
+  --text:#e5e7eb; --muted:#94a3b8; --accent:#22d3ee;
+}
+html,body{height:100%}
+body.auth-body{
+  margin:0; background:linear-gradient(180deg,#0b0f19,#111827);
+  color:var(--text); font-family:ui-sans-serif,system-ui,"Segoe UI",Roboto,Arial;
+}
+.auth-main{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{
+  width:100%;max-width:520px;border:1px solid var(--border);border-radius:16px;padding:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));
+  box-shadow:0 20px 40px rgba(0,0,0,.45);
+}
+.card-head h1{margin:0 0 6px 0;font-size:28px;font-weight:800}
+.card-head .muted{margin:0;color:var(--muted)}
+.form{margin-top:16px;display:flex;flex-direction:column;gap:14px}
+.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.field input, .field textarea{
+  width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);
+  background:rgba(0,0,0,.25);color:var(--text);outline:none;
+}
+.field input:focus, .field textarea:focus{
+  border-color:rgba(255,255,255,.22);box-shadow:0 0 0 3px rgba(34,211,238,.18)
+}
+.btn-primary{
+  margin-top:6px;width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(90deg, rgba(34,211,238,.2), rgba(255,255,255,.08));
+  color:var(--text);font-weight:700;letter-spacing:.2px;cursor:pointer
+}
+.messages{list-style:none;padding:0;margin:0 0 10px 0}
+.messages li{padding:10px 12px;border-radius:10px;margin-bottom:8px}
+.messages li.success{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.35)}
+.messages li.error{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35)}
+.err{color:#fecaca;font-size:12px;margin-top:6px}
+.card-foot{margin-top:14px;color:var(--muted);font-size:13px;text-align:center}
+.card-foot a{color:#fff;text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.25)}

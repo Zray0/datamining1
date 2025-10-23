@@ -13,13 +13,10 @@ def product_detail(request, pk):
     return render(request, 'inventory/product_detail.html', {'product': product})
 
 from rest_framework import viewsets
-from inventory.models import Product, Category
+from inventory.models import Product
 from inventory.serializers import ProductSerializer, CategorySerializer
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer

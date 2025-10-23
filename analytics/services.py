@@ -1,7 +1,8 @@
 # analytics/services.py
-from analytics.models import AssocRule
+from analytics.models import AssocRule, CustomerCluster
+
 def recommend_from_cart(cart_skus, top_n=5, min_conf=0.1, min_lift=1.05):
-    cart = set(str(x) for x in cart_skus)
+    cart = set(map(str, cart_skus))
     qs = (AssocRule.objects
           .filter(confidence__gte=min_conf, lift__gte=min_lift)
           .order_by("-lift","-confidence","-support"))
@@ -11,8 +12,12 @@ def recommend_from_cart(cart_skus, top_n=5, min_conf=0.1, min_lift=1.05):
         if ants.issubset(cart):
             for c in r.consequents:
                 if c not in cart:
-                    m = scored.get(c)
-                    cur = (r.lift, r.confidence, r.support)
-                    if not m or cur > (m["lift"], m["confidence"], m["support"]):
-                        scored[c] = {"lift": r.lift, "confidence": r.confidence, "support": r.support}
-    return [sku for sku, _ in sorted(scored.items(), key=lambda kv: (kv[1]['lift'], kv[1]['confidence']), reverse=True)[:top_n]]
+                    cur = scored.get(c)
+                    met = (r.lift, r.confidence, r.support)
+                    if not cur or met > cur:
+                        scored[c] = met
+    return [sku for sku, _ in sorted(scored.items(), key=lambda kv: kv[1], reverse=True)[:top_n]]
+
+def customer_cluster_id(user):
+    rec = CustomerCluster.objects.filter(customer=user).order_by("-fitted_at").first()
+    return rec.cluster_id if rec else None

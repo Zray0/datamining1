@@ -1,8 +1,8 @@
-
-# analytics/urls.py
 from django.urls import path
-from .views import rules_page
-from .views import rules_api
+from .views import clusters_overview, rules_page
+
 app_name = "analytics"
-urlpatterns = [path("rules/", rules_api, name="rules_api"),
-               path("rules-page/", rules_page, name="rules_page"),]
+urlpatterns = [
+    path("clusters/", clusters_overview, name="clusters_overview"),
+    path("rules-page/", rules_page, name="rules_page"),
+]

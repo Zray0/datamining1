@@ -1,0 +1,19 @@
+sku,monthly_sales,shelf_life_days,profit_margin,category
+Ashwagandha,41227,365,0.3,Herbal
+BCAA,41027,720,0.32,Amino Acid
+Biotin,41533,730,0.4,Vitamin
+Collagen Peptides,40856,540,0.28,Protein
+Creatine,41236,720,0.33,Performance
+Electrolyte Powder,41065,365,0.3,Hydration
+Fish Oil,41325,540,0.3,Omega
+Green Tea Extract,40743,365,0.3,Fat Burner
+Iron Supplement,41194,730,0.35,Mineral
+Magnesium,41272,730,0.35,Mineral
+Melatonin,41165,365,0.3,Sleep Aid
+Multivitamin,41174,730,0.4,Vitamin
+Pre-Workout,41146,720,0.33,Performance
+Pre-Workout,141,365,0.3,Unknown
+Unknown,362,365,0.3,Herbal
+Vitamin C,40727,730,0.4,Vitamin
+Whey Protein,41264,540,0.28,Protein
+Zinc,41204,730,0.35,Mineral

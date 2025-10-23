@@ -1,0 +1,17 @@
+<h1>Your Cart</h1>
+<ul>
+  {% for item in cart_items %}
+    <li>{{ item.product.name }} ({{ item.quantity }})</li>
+  {% endfor %}
+</ul>
+{% if recommendations %}
+  <h4>Also bought together:</h4>
+  <ul>
+    {% for rec in recommendations %}
+      <li>If you buy <b>{{ rec.antecedent }}</b>, consider <b>{{ rec.consequent }}</b> (confidence: {{ rec.confidence|floatformat:2 }})</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% if cluster_name %}
+  <div class="alert alert-success">Special offers for {{ cluster_name }} customers!</div>
+{% endif %}

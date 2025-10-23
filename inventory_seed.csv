@@ -1,0 +1,19 @@
+sku,name,category,slug
+WHEY_PROTEIN,Whey Protein,Protein,protein
+VITAMIN_C,Vitamin C,Vitamin,vitamin
+FISH_OIL,Fish Oil,Omega,omega
+MULTIVITAMIN,Multivitamin,Vitamin,vitamin
+PRE_WORKOUT,Pre-Workout,Performance,performance
+BCAA,BCAA,Amino Acid,amino-acid
+CREATINE,Creatine,Performance,performance
+ZINC,Zinc,Mineral,mineral
+COLLAGEN_PEPTIDES,Collagen Peptides,Protein,protein
+MAGNESIUM,Magnesium,Mineral,mineral
+UNKNOWN,Unknown,Herbal,herbal
+MELATONIN,Melatonin,Sleep Aid,sleep-aid
+BIOTIN,Biotin,Vitamin,vitamin
+GREEN_TEA_EXTRACT,Green Tea Extract,Fat Burner,fat-burner
+IRON_SUPPLEMENT,Iron Supplement,Mineral,mineral
+ELECTROLYTE_POWDER,Electrolyte Powder,Hydration,hydration
+PRE_WORKOUT,Pre-Workout,Unknown,unknown
+ASHWAGANDHA,Ashwagandha,Herbal,herbal

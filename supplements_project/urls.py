@@ -1,15 +1,22 @@
+# supplements_project/urls.py
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView
+from django.shortcuts import redirect
+
+def home_redirect(request):
+    if request.user.is_authenticated and (request.user.is_staff or request.user.is_superuser):
+        return redirect("admin:index")
+    return redirect("dashboards:dashboard_home")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("", home_redirect, name="home"),
     path("accounts/", include("accounts.urls")),
-    #path("", RedirectView.as_view(pattern_name="accounts:customer_login", permanent=False)),
-    path("", RedirectView.as_view(pattern_name="accounts:login", permanent=False)),
-    path('', include('inventory.urls', namespace='inventory')),
-    path('', include('dashboards.urls')),
+    path("analytics/", include("analytics.urls")),
+    path("dashboards/", include("dashboards.urls")),
     path('sales/', include('sales.urls')),
-    path('analytics/', include('analytics.urls')),
-    path('dashboard/',include('dashboards.urls',namespace='dashboards')),
+    path('customer/', include('customer.urls')),
+    path('cart/', include('cart.urls')),
+
+
 ]

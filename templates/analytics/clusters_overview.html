@@ -1,0 +1,20 @@
+<!-- templates/analytics/clusters_overview.html -->
+<!doctype html><html><head><meta charset="utf-8"><title>Clusters</title>
+<style>table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px}th{background:#f3f4f6}</style>
+</head><body>
+<h1>Customer Clusters</h1>
+<table><thead><tr><th>Customer</th><th>Cluster</th><th>k</th><th>Fitted</th></tr></thead>
+<tbody>
+{% for r in customer_clusters %}
+<tr><td>{{ r.customer }}</td><td>{{ r.cluster_id }}</td><td>{{ r.k }}</td><td>{{ r.fitted_at }}</td></tr>
+{% empty %}<tr><td colspan="4">No customer clusters.</td></tr>{% endfor %}
+</tbody></table>
+
+<h1>Product Clusters</h1>
+<table><thead><tr><th>SKU</th><th>Cluster</th><th>k</th><th>Fitted</th></tr></thead>
+<tbody>
+{% for r in product_clusters %}
+<tr><td>{{ r.sku }}</td><td>{{ r.cluster_id }}</td><td>{{ r.k }}</td><td>{{ r.fitted_at }}</td></tr>
+{% empty %}<tr><td colspan="4">No product clusters.</td></tr>{% endfor %}
+</tbody></table>
+</body></html>

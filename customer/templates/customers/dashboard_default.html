@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customer Dashboard</title>
+  <link href="{% static 'customer/dashboard.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <h2>Welcome, {{ user.username }}!</h2>
+  <div class="card">
+    <strong>Your fitness journey starts here.</strong>
+  </div>
+  <h3>Your Orders</h3>
+  <ul>
+    {% for order in orders %}
+      <li>{{ order.created_at|date:"Y-m-d" }}: ₹{{ order.total_amount|floatformat:2 }}</li>
+    {% empty %}
+      <li>Make your first purchase soon!</li>
+    {% endfor %}
+  </ul>
+  {% if recommended %}
+    <div class="alert alert-info">Based on shopping patterns:</div>
+    <ul>
+      {% for rec in recommended %}
+        <li>{{ rec.antecedent }} ⇒ <strong>{{ rec.consequent }}</strong> (Confidence: {{ rec.confidence|floatformat:2 }})</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+</body>
+</html>

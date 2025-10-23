@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weight Loss Cluster Dashboard</title>
+  <link href="{% static 'customer/dashboard.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <h2>Hello, {{ user.username }}!</h2>
+  <div class="card" style="background:#fbe6e6;">
+    <strong>Group: Weight Loss Achievers</strong><br>
+    <span>Keep track of your journey and goal-oriented supplements.</span>
+  </div>
+  <h3>Your Progress Purchases</h3>
+  <ul>
+    {% for order in orders %}
+      <li>{{ order.created_at|date:"Y-m-d" }}: ₹{{ order.total_amount|floatformat:2 }}</li>
+    {% empty %}
+      <li>No purchases yet.</li>
+    {% endfor %}
+  </ul>
+  <h3>Weight Management Recommendations</h3>
+  <ul>
+    <li>Fat burners, Thermogenics, Keto Snacks</li>
+    <li>Meal replacement shakes</li>
+  </ul>
+  {% if recommended %}
+    <div class="alert alert-info">Customers on a weight loss track also bought:</div>
+    <ul>
+      {% for rec in recommended %}
+        <li>{{ rec.antecedent }} ⇒ <strong>{{ rec.consequent }}</strong> (Confidence: {{ rec.confidence|floatformat:2 }})</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+</body>
+</html>

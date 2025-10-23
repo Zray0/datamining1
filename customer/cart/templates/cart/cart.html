@@ -1,0 +1,11 @@
+<h3>Your Cart</h3>
+<!-- ... cart items table ... -->
+
+{% if recommendations %}
+  <div class="alert alert-info">Recommended additions based on your cart:</div>
+  <ul>
+    {% for rule in recommendations %}
+      <li>If you buy <strong>{{ rule.antecedent }}</strong>, consider <strong>{{ rule.consequent }}</strong> (Confidence: {{ rule.confidence|floatformat:2 }})</li>
+    {% endfor %}
+  </ul>
+{% endif %}

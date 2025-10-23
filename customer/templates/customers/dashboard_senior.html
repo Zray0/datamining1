@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Senior Wellness Dashboard</title>
+  <link href="{% static 'customer/dashboard.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <h2>Welcome, {{ user.username }}!</h2>
+  <div class="card" style="background:#fbf9e6;">
+    <strong>Your group: Senior Wellness</strong><br>
+    <span>Maintain vitality with tailored nutrition!</span>
+  </div>
+  <h3>Your Recent Orders</h3>
+  <ul>
+    {% for order in orders %}
+      <li>{{ order.created_at|date:"Y-m-d" }}: ₹{{ order.total_amount|floatformat:2 }}</li>
+    {% empty %}
+      <li>No purchases yet.</li>
+    {% endfor %}
+  </ul>
+  <h3>Recommended for Seniors</h3>
+  <ul>
+    <li>Calcium & Bone Health, Heart Supplements</li>
+    <li>Immunity boosters, Joint support</li>
+  </ul>
+  {% if recommended %}
+    <div class="alert alert-info">Seniors also bought:</div>
+    <ul>
+      {% for rec in recommended %}
+        <li>{{ rec.antecedent }} ⇒ <strong>{{ rec.consequent }}</strong> (Confidence: {{ rec.confidence|floatformat:2 }})</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+</body>
+</html>

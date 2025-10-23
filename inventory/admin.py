@@ -1,11 +1,15 @@
+# inventory/admin.py
 from django.contrib import admin
 from .models import Product, Category
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('sku','name','category','price','stock_qty','reorder_level')
-    search_fields = ('name','sku')
-
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("name","slug")
+    search_fields = ("name","slug")
+    prepopulated_fields = {"slug": ("name",)}
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ("sku","name","category","margin")  # 'category' is OK; Django resolves FK
+    list_filter = ("category",)
+    search_fields = ("sku","name")

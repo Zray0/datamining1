@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Young Health Seekers Dashboard</title>
+  <link href="{% static 'customer/dashboard.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <h2>Welcome, {{ user.username }}!</h2>
+  <div class="card" style="background:#e6f3fa;">
+    <strong>You belong to: Young Health Seekers</strong><br>
+    <span>Energy, focus, and fitness deals just for you!</span>
+  </div>
+  <h3>Your Latest Purchases</h3>
+  <ul>
+    {% for order in orders %}
+      <li>{{ order.created_at|date:"Y-m-d" }}: ₹{{ order.total_amount|floatformat:2 }}</li>
+    {% empty %}
+      <li>No purchases yet.</li>
+    {% endfor %}
+  </ul>
+  <h3>Our Picks for Your Group</h3>
+  <ul>
+    <li>Protein Blends, Multivitamins, Pre-workouts</li>
+    <li>Discounted gym accessories</li>
+  </ul>
+  {% if recommended %}
+    <div class="alert alert-info">Top picks based on baskets like yours:</div>
+    <ul>
+      {% for rec in recommended %}
+        <li>{{ rec.antecedent }} ⇒ <strong>{{ rec.consequent }}</strong> (Confidence: {{ rec.confidence|floatformat:2 }})</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+</body>
+</html>

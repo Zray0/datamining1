@@ -1,0 +1,84 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Sales Dashboard{% endblock %}
+{% block content %}
+<h1>Sales Analytics Overview</h1>
+
+<!-- Stat Cards -->
+<div style="display: flex; gap: 24px; margin-bottom: 30px; flex-wrap: wrap;">
+  <div style="background: #e9effa; border-radius: 10px; padding: 18px; min-width:180px;">
+    <strong>Total Orders:</strong> {{ total_orders }}
+  </div>
+  <div style="background: #e9f7e7; border-radius: 10px; padding: 18px; min-width:180px;">
+    <strong>Total Customers:</strong> {{ total_customers }}
+  </div>
+  <div style="background: #f7efd9; border-radius: 10px; padding: 18px; min-width:180px;">
+    <strong>Repeat Customers:</strong> {{ repeat_customers }}
+  </div>
+  <div style="background: #e9e7f7; border-radius: 10px; padding: 18px; min-width:180px;">
+    <strong>Total Revenue:</strong> ₹{{ total_revenue|floatformat:2 }}
+  </div>
+  <div style="background: #faf2e9; border-radius: 10px; padding: 18px; min-width:180px;">
+    <strong>Avg Order Value:</strong> ₹{{ avg_order_value|floatformat:2 }}
+  </div>
+</div>
+
+<!-- Monthly Sales Bar Chart -->
+<div style="width:80%;margin:auto;">
+  <canvas id="monthlySalesChart"></canvas>
+</div>
+
+<h3 style="margin-top: 40px;">Top 5 Bestsellers</h3>
+<ul>
+  {% for b in bestsellers %}
+    <li>{{ b.product__name }} - {{ b.quantity_sold }} sold</li>
+  {% endfor %}
+</ul>
+
+<h3 style="margin-top:40px;color:crimson;">Low Inventory Alerts</h3>
+<ul>
+  {% for prod in low_inventory %}
+    <li>{{ prod.name }} - Only {{ prod.quantity }} left!</li>
+  {% empty %}
+    <li>All items in stock!</li>
+  {% endfor %}
+</ul>
+
+<h3 style="margin-top: 40px;">Top Customers by Spend</h3>
+<ul>
+  {% for c in top_customers %}
+    <li>{{ c.user__username }} — ₹{{ c.spent|floatformat:2 }}</li>
+  {% endfor %}
+</ul>
+
+<h3 style="margin-top: 40px;">Admin Users</h3>
+<ul>
+  {% for admin in admin_members %}
+    <li>{{ admin.username }} - {{ admin.email }}</li>
+  {% endfor %}
+</ul>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const labels = [{% for m in monthly_sales %}"Month {{ m.month }}",{% endfor %}];
+const data = [{% for m in monthly_sales %}{{ m.revenue }},{% endfor %}];
+new Chart(document.getElementById('monthlySalesChart'), {
+  type: 'bar',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'Monthly Revenue',
+      backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      data: data,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'top' } },
+    title: { display: true, text: 'Monthly Sales Overview' }
+  }
+});
+</script>
+{% endblock %}

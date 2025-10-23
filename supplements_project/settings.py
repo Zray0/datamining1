@@ -2,6 +2,7 @@
 from pathlib import Path
 import environ
 import time  # for dev-only session cookie rotation
+import dj_database_url
 
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env()

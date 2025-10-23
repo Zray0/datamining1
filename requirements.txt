@@ -10,3 +10,4 @@ django-environ
 django-crispy-forms
 python-dotenv
 gunicorn
+djangorestframework
